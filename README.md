@@ -32,8 +32,6 @@ no live connection, and means a change of API surface only affects one module.
 
 ## Status
 
-Week 1 of an 8-week build.
-
 **Working**
 - Authenticated session handling, credentials read from environment
 - Case state endpoint
@@ -49,3 +47,32 @@ Week 1 of an 8-week build.
 ## Setup
 
 Requires Python 3.14 and access to a Rotman RIT account.
+```
+python -m venv .venv
+.venv\Scripts\activate
+pip install requests python-dotenv
+```
+
+Create a `.env` file in the project root:
+
+```
+RIT_AUTH_HEADER=Basic <your base64 credentials>
+```
+
+The value is available from the API Info dialog in the RIT client. Credentials
+are read from the environment at runtime and are never committed; `.env` is
+gitignored.
+
+Run the client's smoke test with a case active:
+
+```
+python client.py
+```
+
+## Files
+
+| File                 | Purpose                                              |
+| -------------------- | ---------------------------------------------------- |
+| `client.py`          | API client. Session handling and endpoint functions. |
+| `probe_book.py`      | One-off probe confirming order-book depth.           |
+| `test_connection.py` | Initial endpoint discovery script.                   |
