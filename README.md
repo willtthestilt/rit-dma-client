@@ -34,11 +34,10 @@ no live connection, and means a change of API surface only affects one module.
 
 **Working**
 - Authenticated session handling, credentials read from environment
-- Case state endpoint
+- Case, trader, securities, and order-book endpoints
 - Order-book depth confirmed against a live case
 
 **Planned**
-- `get_book`, `get_trader`, `get_securities` moved into `client.py`
 - Recorder writing timestamped book snapshots to JSONL
 - Offline replay of recorded snapshots
 - Market-making strategy: two-sided quoting with inventory limits
