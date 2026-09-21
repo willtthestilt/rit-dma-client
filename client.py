@@ -30,7 +30,55 @@ def get_case(session):
     return r.json()
 
 
+def get_trader(session):
+    """Return the current trader state: trader_id, first name, last name, nlv,
+    and total fines.
+    """
+    r = session.get(BASE + "/v1/trader", timeout=10)
+    r.raise_for_status()
+    return r.json()
+
+
+def get_securities(session):
+    """Return the current securities state: list of securities with their
+    ticker, bid, ask, last, position, and volume.
+    """
+    r = session.get(BASE + "/v1/securities", timeout=10)
+    r.raise_for_status()
+    return r.json()
+
+
+def get_book(session, ticker):
+    """Return the order book for a security: a dict with bids and asks,
+    each order carrying its price and quantity.
+    """
+    r = session.get(
+        BASE + "/v1/securities/book",
+        params={"ticker": ticker},
+        timeout=10,
+    )
+    r.raise_for_status()
+    return r.json()
+
+
 if __name__ == "__main__":
     s = make_session()
     case = get_case(s)
+    trader = get_trader(s)
+    securities = get_securities(s)
+    book = get_book(s, "CRZY")
     print("tick:", case["tick"], "status:", case["status"])
+    print(
+        "trader_id:",
+        trader["trader_id"],
+        "first_name:",
+        trader["first_name"],
+        "last_name:",
+        trader["last_name"],
+        "nlv:",
+        trader["nlv"],
+        "total_fines:",
+        trader["total_fines"],
+    )
+    print("securities:", securities)
+    print("top bid:", book["bids"][0]["price"])
