@@ -49,10 +49,10 @@ Requires Python 3.14 and access to a Rotman RIT account.
 ```
 python -m venv .venv
 .venv\Scripts\activate
-pip install requests python-dotenv
+pip install -r requirements.txt
 ```
 
-Create a `.env` file in the project root:
+Copy `.env.example` to `.env` in the project root and replace the placeholder:
 
 ```
 RIT_AUTH_HEADER=Basic <your base64 credentials>
